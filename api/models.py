@@ -3,11 +3,11 @@ from django.db.models.base import Model
 
 
 class IMG(models.Model):
-    src = models.ImageField()
+    src = models.ImageField(upload_to="event-images")
     alt = models.TextField(max_length=200)
 
     def __str__(self):
-        return self.src
+        return self.src.name
 
 # The events
 class Event(models.Model):

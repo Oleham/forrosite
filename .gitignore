@@ -1,6 +1,11 @@
 /node_modules/
 /public/build/
 /static/
+__pycahce__/
+*/__pycache__/
+*.pyc
+media/
+static/
 
 db.sqlite3
 

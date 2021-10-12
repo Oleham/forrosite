@@ -1,7 +1,7 @@
 {% extends 'frontend/base.html' %}
+{% load static %}
 
-{% block content %}
-<p>Her kommer Svelte</p>
-
-<p>Forro er en aktiv dans!</p>
+{% block head %}
+	<link rel='stylesheet' href="{% static 'bundle.css' %}">
+	<script defer src="{% static 'bundle.js' %}"></script>
 {% endblock %}
