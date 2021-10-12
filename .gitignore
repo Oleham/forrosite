@@ -1,0 +1,9 @@
+/node_modules/
+/public/build/
+/static/
+
+db.sqlite3
+
+.DS_Store
+
+*.JPG
