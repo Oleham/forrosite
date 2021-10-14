@@ -1,9 +1,8 @@
 from rest_framework import viewsets
-from api.serializers import EventSerializer
-from .models import Event
+from api.serializers import EventSerializer, TranslationSerializer
+from .models import Event, Translation
 
 
-# ViewSets define the view behavior.
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer

@@ -6,6 +6,7 @@ __pycahce__/
 *.pyc
 media/
 static/
+*/migrations/
 
 db.sqlite3
 

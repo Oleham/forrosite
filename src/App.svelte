@@ -14,15 +14,13 @@
 
 <h2>Se de neste arrangementene:</h2>
 
-<EventFrame />
-
-<!-- {#await data}
+{#await data}
 <p>venter</p>
 {:then events}
-<EventFrame {...events}/>
+<EventFrame {events}/>
 {:catch error}
 <p>{error.message}</p>
-{/await} -->
+{/await}
 
 <p>{current}</p>
 

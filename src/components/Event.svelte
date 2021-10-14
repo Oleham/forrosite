@@ -4,7 +4,7 @@
 
     export let event;
 
-    let { title, where, when, img, description } = event.default;
+    let { title, where, when, img, description } = event;
 
     let translations = event.translations;
 
@@ -20,8 +20,8 @@
     }
 
     function revertLang() {
-        title = event.default.title
-        description = event.default.description
+        title = event.title
+        description = event.description
     }
 
 </script>

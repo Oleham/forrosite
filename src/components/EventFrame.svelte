@@ -3,17 +3,15 @@
 
     export let events = [
             { 
-                default: {
-                    lang: "no",
-                    title: "Tittel",
-                    where: "Storgagta 20",
-                    when: "01.02.04 10:00",
-                    img: {
-                        src: "media/event-images/mars.jpeg",
-                        alt: "Alternativ tekst"
-                    },
-                    description: "Ta med danseskoene og kom!"
+                lang: "no",
+                title: "Tittel",
+                where: "Address",
+                when: "01.02.04 10:00",
+                img: {
+                    src: "image.jpeg",
+                    alt: "Alternativ tekst"
                 },
+                description: "Ta med danseskoene og kom!",
                 translations: [
                     {
                         lang: "en",
@@ -22,49 +20,19 @@
                     },
                     {
                         lang: "po",
-                        title: "Titelau",
-                        description: "Piede danso vamos!!"
+                        title: "Título",
+                        description: "Traga seus sapatos de dança!"
                     }
                 ]
-            },
-            { 
-                default: {
-                    lang: "no",
-                    title: "Dansefest",
-                    where: "Rådhusveien 20",
-                    when: "01.02.04 10:00",
-                    img: {
-                        src: "media/event-images/mars.jpeg",
-                        alt: "Alternativ tekst"
-                    },
-                    description: "Dette blir moro!"
-                },
-                translations: [
-                    {
-                        lang: "en",
-                        title: "Title",
-                        description: "This'll be fun!!"
-                    },
-                ]
-            },
-            { 
-                default: {
-                    lang: "no",
-                    title: "Tittel",
-                    where: "Haldenveien 20",
-                    when: "01.02.04 10:00",
-                    img: {
-                        src: "media/event-images/mars.jpeg",
-                        alt: "Alternativ tekst"
-                    },
-                    description: "Dette blir moro!"
-                }
-            }
-    ]
+            }];
+
+        // We only want to see the three first elements here.
+        // This needs to be refines
+        let new_events = events.slice(-3)
 </script>
 
 <div class="container">
-    {#each events as event}
+    {#each new_events as event}
     <Event {event} />
     {/each}
     <div class="more">+</div>
