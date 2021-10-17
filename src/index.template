@@ -1,0 +1,14 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+{% block head %}
+    %head%
+	<link rel='stylesheet' href="{% static 'frontend/bundle.css' %}">
+	<script defer src="{% static 'frontend/bundle.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="sap-app">
+%body%
+</div>
+{% endblock %}

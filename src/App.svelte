@@ -1,19 +1,13 @@
 <script>
 	import IntroBox from './components/IntroBox.svelte'
 	import EventFrame from './components/EventFrame.svelte';
-  import { onMount } from 'svelte';
-  import { fade } from 'svelte/transition';
-
-	let current = window.location
 
 	async function getEvents() {
-		const response = await fetch("api/events")
+		const response = await fetch("api/events");
 		return response.json()
 	}
 
 	let data = getEvents();
-
-	let load = false;
 
   let allEvents = false;
 
@@ -22,14 +16,8 @@
     data = getEvents();
   }
 
-	onMount(()=>{
-		load = true;
-	})
-
 </script>
 
-{#if load}
-<main transition:fade>
 
   <IntroBox />
 
@@ -41,10 +29,10 @@
   <p>{error.message}</p>
   {/await}
 
-  <p>{current}</p>
 
-</main>
-{/if}
+  <p>Some static element</p>
+
+
 <style>
 
 </style>

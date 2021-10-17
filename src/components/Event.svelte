@@ -9,7 +9,6 @@
 
     let translations = event.translations;
 
-
     let overlay = false;
     function overlayOn() {
         overlay = true;
@@ -39,7 +38,8 @@
 >
     {#if overlay}
     <div class="lang-menu">
-    <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
+        <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
+        <div class="exit-btn" on:dblclick={overlayOff}>❌</div>
     </div>
     {/if}
     <h3>{title}</h3>
@@ -59,8 +59,9 @@
     </div>
 </div>
 
-<div class:active_overlay={overlay} on:click={overlayOff}></div>
-
+{#if overlay}
+<div class="active_overlay" on:click={overlayOff}></div>
+{/if}
 <style>
 
 
@@ -146,6 +147,16 @@ p {
     left: 0;
     background-color: rgba(209, 255, 5, 0.5);
     z-index: 1;
+}
+
+.exit-btn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 3rem;
+    font-weight: 800;
+    z-index: 2;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 1000px) {

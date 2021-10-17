@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w & python manage.py runserver",
-    "start": "sirv public --no-clear"
+    "build": "node ssr.js & rollup -c",
+    "dev": "node ssr.js & rollup -c -w & python manage.py runserver",
+    "start": "sirv public --no-clear",
+    "moro": "rollup rollup.ssr.config.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -18,6 +19,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "axios": "^0.23.0",
     "sirv-cli": "^1.0.0"
   }
 }
