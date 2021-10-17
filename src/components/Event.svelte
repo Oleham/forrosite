@@ -2,6 +2,7 @@
     import { fade } from 'svelte/transition';
     import Language from './Language.svelte';
 
+
     export let event;
 
     let { title, where, when, img, description } = event;
@@ -10,9 +11,14 @@
 
 
     let overlay = false;
-    function toggleOverlay() {
-        overlay = !overlay;
+    function overlayOn() {
+        overlay = true;
     }
+
+    function overlayOff() {
+        overlay = false;
+    }
+
 
     function changeLang(e) {
         title = e.detail.title
@@ -26,75 +32,56 @@
 
 </script>
 
-<div class="container">
-    <div class="card" 
-        class:selected={overlay} 
-        on:click={toggleOverlay}
-    >
-        <div class="textbox" transition:fade>
 
-            <h3>{title}</h3>
-
-            <div class="info-box">
-                <div class="info-label">
-                    <p>🌎</p>
-                    <p>🕔</p>
-                </div>
-
-                <div class="info-text">
-                    <p>{where}</p>
-                    <p>{when}</p>
-                </div>
-            </div>
-
-            <div class="description">
-                <p>{description}</p>
-            </div>
-        </div>
-
-        <div class="image-box">
-            <img src={img.src} alt={img.alt}>
-        </div>
+<div class="card" 
+    class:selected={overlay} 
+    on:click={overlayOn}
+>
+    {#if overlay}
+    <div class="lang-menu">
+    <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
+    </div>
+    {/if}
+    <h3>{title}</h3>
+    <div class="textbox">
+        <p>🌎</p>
+        <p>{where}</p>
+        <p>🕔</p>
+        <p>{when}</p>
     </div>
 
-    <div class="lang-menu" class:selected={overlay}>
-        <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
+    {#if overlay}
+    <p in:fade="{{delay:300}}">{description}</p>
+    {/if}
+
+    <div class="image-box">
+        <img src={img.src} alt={img.alt}>
     </div>
 </div>
-<div class:active_overlay={overlay} on:click={toggleOverlay}></div>
 
+<div class:active_overlay={overlay} on:click={overlayOff}></div>
 
 <style>
-.container {
-    display: flex;
-    margin: 10px;
-}
+
 
 .lang-menu {
-    padding: 20px 10px 10px 0px;
-    margin:0px;
-}
+    float:right;
 
-.lang-menu.selected {
-    position: absolute;
-    font-size: 3rem;
-    top:10px;
-    left:0px;
-    justify-self: start;
-    z-index: 2;
 }
 
 .card.selected {
     position: absolute;
-    flex-direction: row-reverse;
-    max-width: 1200px;
-    height: 60%;
-    width:unset;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(200px, 50%, 80%);
+    height: clamp(200px, 50%, 80%);
     margin:auto;
-    padding: 30px;
+    padding: 40px;
     transition: 0.3s;
     background-color: rgb(218, 96, 191);
     z-index: 2;
+    overflow-y: scroll;
 }
 
 .card {
@@ -102,12 +89,12 @@
     align-content: center;
     justify-content: center;
     flex-direction: column;
+    margin: 20px 0px 20px 0px;
     width: 200px;
     height: 200px;
-    border: 6px solid var(--main-yellow);
     border-radius: 10px;
-    margin: 10px 0px 10px 0px;
-    padding: 5px;
+    padding: 20px;
+    background-color: var(--background-card);
 }
 
 .card:hover {
@@ -126,7 +113,7 @@
 }
 
 .card.selected .image-box {
-    height: unset;
+    height: 50%;
     width:unset;
     max-width: 600px;
     overflow:hidden;
@@ -135,8 +122,9 @@
 }
 
 .textbox {
-    flex-grow: 3;
-    text-align: left;
+    display:grid;
+    grid-template-columns: 30px 100px;
+    margin: 10px 0px 10px 0px;
 }
 
 h3 {
@@ -144,24 +132,7 @@ h3 {
 }
 
 p {
-    margin: 1px;
-}
-
-.info-box {
-    display: flex;
-    justify-content:flex-start
-}
-
-.info-label {
-    padding-right: 10px;
-}
-
-.description {
-    display:none;
-}
-
-.selected .description {
-    display:block;
+    margin: 2px;
 }
 
 .active_overlay {
@@ -176,5 +147,12 @@ p {
     background-color: rgba(209, 255, 5, 0.5);
     z-index: 1;
 }
+
+@media only screen and (max-width: 1000px) {
+        .card.card.selected {
+          width: 90%;
+          height: 90%;
+        }
+    }
 
 </style>

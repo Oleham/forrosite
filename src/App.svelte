@@ -1,5 +1,8 @@
 <script>
+	import IntroBox from './components/IntroBox.svelte'
 	import EventFrame from './components/EventFrame.svelte';
+  import { onMount } from 'svelte';
+  import { fade } from 'svelte/transition';
 
 	let current = window.location
 
@@ -10,20 +13,38 @@
 
 	let data = getEvents();
 
+	let load = false;
+
+  let allEvents = false;
+
+  function open() {
+    allEvents = true;
+    data = getEvents();
+  }
+
+	onMount(()=>{
+		load = true;
+	})
+
 </script>
 
-<h2>Se de neste arrangementene:</h2>
+{#if load}
+<main transition:fade>
 
-{#await data}
-<p>venter</p>
-{:then events}
-<EventFrame {events}/>
-{:catch error}
-<p>{error.message}</p>
-{/await}
+  <IntroBox />
 
-<p>{current}</p>
+  {#await data}
+  <p>venter</p>
+  {:then events}
+  <EventFrame {events} on:more={open}/>
+  {:catch error}
+  <p>{error.message}</p>
+  {/await}
 
+  <p>{current}</p>
+
+</main>
+{/if}
 <style>
 
 </style>
