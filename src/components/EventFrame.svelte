@@ -6,7 +6,6 @@
 
     export let events = [
             { 
-                lang: "no",
                 title: "Tittel",
                 where: "Address",
                 when: "01.02.04 10:00",

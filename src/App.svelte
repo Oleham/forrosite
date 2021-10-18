@@ -1,13 +1,35 @@
 <script>
 	import IntroBox from './components/IntroBox.svelte'
 	import EventFrame from './components/EventFrame.svelte';
+  import Blog from './components/Blog.svelte';
 
-	async function getEvents() {
-		const response = await fetch("api/events");
+
+  let post = {
+        title: "Title",
+        ingress:"Text",
+        body: "Text",
+        img: {
+          src: "plassholder.jpg",
+          alt: "Folkefest med forro"
+        }
+    }
+  
+
+	async function getData(url) {
+		const response = await fetch(`api/${url}`);
 		return response.json()
 	}
 
-	let data = getEvents();
+
+  async function getPosts() {
+    await fetch("api/posts")
+    .then(data => data.json())
+    .then((payload) => {post = payload[0]})
+    .catch((error) => {console.log(error)})
+  }
+
+  let data = getData("events");
+  getPosts();
 
   let allEvents = false;
 
@@ -32,6 +54,7 @@
 
   <p>Some static element</p>
 
+  <Blog {post}/>
 
 <style>
 

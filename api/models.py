@@ -28,3 +28,11 @@ class Translation(models.Model):
     def __str__(self):
         return f"{self.lang} translation for {self.event.title}"
 
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    ingress = models.TextField()
+    body = models.TextField()
+    img = models.OneToOneField(IMG, on_delete=models.CASCADE, default=1)
+
+    def __str__(self):
+        return self.title
