@@ -55,6 +55,7 @@
 
   <p>Some static element</p>
 
+
   <Blog {post}/>
 
 <style>
