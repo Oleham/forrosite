@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node ssr.js & rollup -c",
-    "dev": "node ssr.js & rollup -c -w & python manage.py runserver",
-    "start": "sirv public --no-clear",
-    "moro": "rollup rollup.ssr.config.js"
+    "dev": "node ssr.js & rollup -c -w & python manage.py runserver"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

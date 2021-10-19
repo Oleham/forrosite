@@ -1,6 +1,7 @@
 <script>
     import { fade } from 'svelte/transition';
     import Language from './Language.svelte';
+    import Map from './Map.svelte';
 
 
     export let event;
@@ -36,22 +37,30 @@
     class:selected={overlay} 
     on:click={overlayOn}
 >
-    {#if overlay}
-    <div class="lang-menu">
-        <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
-        <div class="exit-btn" on:dblclick={overlayOff}>❌</div>
+    <div class="card-header">
+        {#if overlay}
+        <div class="lang-menu">
+            <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
+            <div class="exit-btn" on:dblclick={overlayOff}>❌</div>
+        </div>
+        {/if}
+        <h3>{title}</h3>
+        <div class="infobox">
+            <p>🌎</p>
+            <p>{where}</p>
+            <p>🕔</p>
+            <p>{when}</p>
+        </div>
+        {#if overlay}
+        <Map adress={where} />
+        {/if}
     </div>
-    {/if}
-    <h3>{title}</h3>
+    
+    {#if overlay}
     <div class="textbox">
-        <p>🌎</p>
-        <p>{where}</p>
-        <p>🕔</p>
-        <p>{when}</p>
+        <h4>Info:</h4>
+        <p in:fade="{{delay:300}}">{description}</p>
     </div>
-
-    {#if overlay}
-    <p in:fade="{{delay:300}}">{description}</p>
     {/if}
 
     <div class="image-box">
@@ -65,13 +74,12 @@
 <style>
 
 
-.lang-menu {
-    float:right;
-
-}
 
 .card.selected {
     position: absolute;
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: space-between;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -116,24 +124,26 @@
 .card.selected .image-box {
     height: 50%;
     width:unset;
-    max-width: 600px;
+    max-width: 300px;
     overflow:hidden;
     opacity: unset;
-    margin: 20px;
 }
 
-.textbox {
+.infobox {
     display:grid;
     grid-template-columns: 30px 100px;
     margin: 10px 0px 10px 0px;
 }
 
-h3 {
-    margin-bottom: 2px;
-}
-
 p {
     margin: 2px;
+}
+
+.textbox {
+    padding: 0px 10px 0px 10px;
+    margin: 0px 10px 0px 10px;
+    border-left: 1px dotted black;
+    border-right: 1px dotted black;
 }
 
 .active_overlay {
@@ -154,7 +164,15 @@ p {
     top: 0;
     right: 10px;
     font-size: 3rem;
-    font-weight: 800;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.exit-btn:hover {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 3.5rem;
     z-index: 2;
     cursor: pointer;
 }

@@ -1,15 +1,13 @@
 /node_modules/
 /public/build/
-/static/
 __pycahce__/
 */__pycache__/
 *.pyc
 media/
-static/
 */migrations/
 
 db.sqlite3
-
+secrets.json
 .DS_Store
 
 *.JPG

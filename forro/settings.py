@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x!t!f=gf-o@pmen-zv*-#u0y61prpno16@yh2tp@v7&vre$oe='
+with open(os.path.join(BASE_DIR, "secrets.json")) as f:
+    SECRETS = json.load(f)
+
+SECRET_KEY = SECRETS.get("SECRET_KEY", None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["159.223.25.197", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -77,12 +80,24 @@ WSGI_APPLICATION = 'forro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else: 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'djangoDB',
+            'USER': 'postgres',
+            'PASSWORD': SECRETS.get("DATABASE_PASSORD", "password")
+        }
+    }
 
 
 # Password validation

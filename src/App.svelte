@@ -9,7 +9,7 @@
         ingress:"Text",
         body: "Text",
         img: {
-          src: "plassholder.jpg",
+          src: "media/event-images/plassholder.jpg",
           alt: "Folkefest med forro"
         }
     }
