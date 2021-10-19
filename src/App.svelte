@@ -16,7 +16,8 @@
   
 
 	async function getData(url) {
-		const response = await fetch(`api/${url}`);
+		const response = await fetch(`api/${url}`)
+    .catch((error) => {console.log(error)});
 		return response.json()
 	}
 

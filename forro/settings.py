@@ -27,7 +27,7 @@ with open(os.path.join(BASE_DIR, "secrets.json")) as f:
 SECRET_KEY = SECRETS.get("SECRET_KEY", None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["159.223.25.197", "localhost", "127.0.0.1"]
 
@@ -81,23 +81,14 @@ WSGI_APPLICATION = 'forro.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else: 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'djangoDB',
-            'USER': 'postgres',
-            'PASSWORD': SECRETS.get("DATABASE_PASSORD", "password")
-        }
-    }
+}
+
 
 
 # Password validation
