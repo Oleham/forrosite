@@ -15,7 +15,7 @@
         },
         {
             id: "Trinnene",
-            text: `<h2>Trinnene?</h2>
+            text: `<h2>Nysgjerrig på trinnene?</h2>
         <p>Forro er en pardans med en sånn og sånn rytme.</p>
         <p>Trinnene er avslappede og med mindre hoftebevegelser enn f.eks. salsa.</p>`,
             cta: "Se trinnene"
