@@ -11,6 +11,11 @@
     let translations = event.translations;
 
     let overlay = false;
+
+    function toggleOverlay() {
+        overlay = !overlay;
+    }
+
     function overlayOn() {
         overlay = true;
     }
@@ -30,68 +35,54 @@
         description = event.description
     }
 
+    let map = false;
+    function toggleMap() {
+        map = !map;
+    }
+
 </script>
 
-
-<div class="card" 
-    class:selected={overlay} 
-    on:click={overlayOn}
->
-    <div class="card-header">
+<div class:overlay class="wrapper" on:click={overlayOn}>
+    <div class="card" 
+        class:selected={overlay} 
+    >
+        <div class="card-header">
+            {#if overlay}
+            <div class="lang-menu">
+                <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
+                <div class="exit-btn" on:dblclick={overlayOff}>❌</div>
+            </div>
+            {/if}
+            <h3>{title}</h3>
+            <div class="infobox">
+                <p>🌎</p>
+                <p>{where}</p>
+                <p>🕔</p>
+                <p>{when}</p>
+            </div>
+            {#if overlay}
+            <button class="btn" on:click={toggleMap}>Onde?</button>
+            <div style="display: {map ? 'block' : 'none'};">
+                <Map adress={where} />
+            </div>
+            {/if}
+        </div>
+        
         {#if overlay}
-        <div class="lang-menu">
-            <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
-            <div class="exit-btn" on:dblclick={overlayOff}>❌</div>
+        <div class="textbox">
+            <h4>Info:</h4>
+            <p in:fade="{{delay:300}}">{description}</p>
         </div>
         {/if}
-        <h3>{title}</h3>
-        <div class="infobox">
-            <p>🌎</p>
-            <p>{where}</p>
-            <p>🕔</p>
-            <p>{when}</p>
-        </div>
-        {#if overlay}
-        <Map adress={where} />
-        {/if}
-    </div>
-    
-    {#if overlay}
-    <div class="textbox">
-        <h4>Info:</h4>
-        <p in:fade="{{delay:300}}">{description}</p>
-    </div>
-    {/if}
 
-    <div class="image-box">
-        <img src={img.src} alt={img.alt}>
+        <div class="image-box">
+            <img src={img.src} alt={img.alt}>
+        </div>
     </div>
 </div>
 
-{#if overlay}
-<div class="active_overlay" on:click={overlayOff}></div>
-{/if}
+
 <style>
-
-
-
-.card.selected {
-    position: absolute;
-    flex-direction: row;
-    align-content: space-between;
-    justify-content: space-between;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(200px, 50%, 80%);
-    height: clamp(200px, 50%, 80%);
-    margin:auto;
-    padding: 40px;
-    transition: 0.3s;
-    background-color: rgb(218, 96, 191);
-    z-index: 2;
-    overflow-y: scroll;
-}
 
 .card {
     display: flex;
@@ -110,6 +101,24 @@
     translate: 0px -5px;
 }
 
+.card.selected {
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: space-between;
+    max-width: 1200px;
+    max-height: 80%;
+    width: clamp(200px, 80%, 100%);
+    height: clamp(200px, 50%, 100%);
+    margin:auto;
+    margin-top: 10%;
+    overflow-y: auto;
+    padding: 40px;
+    transition: 0.3s;
+    background-color: rgb(218, 96, 191);
+    z-index: 2;
+}
+
+
 .image-box {
     display: flex;
     align-content: center;
@@ -122,8 +131,8 @@
 }
 
 .card.selected .image-box {
-    height: 50%;
     width:unset;
+    height: 200px;
     max-width: 300px;
     overflow:hidden;
     opacity: unset;
@@ -146,8 +155,7 @@ p {
     border-right: 1px dotted black;
 }
 
-.active_overlay {
-    text-align: center;
+.overlay {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -157,6 +165,16 @@ p {
     left: 0;
     background-color: rgba(209, 255, 5, 0.5);
     z-index: 1;
+    transition: 0.3s;
+}
+
+.btn {
+        background-color: black;
+        border: none;
+        padding: 10px;
+        font-family: inherit;
+        color:lightgrey;
+        font-size: 1rem;
 }
 
 .exit-btn {
@@ -165,7 +183,6 @@ p {
     right: 10px;
     font-size: 3rem;
     z-index: 2;
-    cursor: pointer;
 }
 
 .exit-btn:hover {
@@ -178,9 +195,17 @@ p {
 }
 
 @media only screen and (max-width: 1000px) {
-        .card.card.selected {
-          width: 90%;
-          height: 90%;
+        .card.selected {
+          flex-direction: column;
+          height: 80%;
+        }
+
+        .card.selected .textbox{
+            border:unset;
+            padding: 10px 0px 10px 0px;
+            margin: 10px 0px 10px 0px;
+            border-top: 1px dotted black;
+            border-bottom: 1px dotted black;
         }
     }
 

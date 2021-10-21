@@ -53,6 +53,7 @@
         display: flex;
         align-content: center;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .more {
@@ -70,12 +71,6 @@
 
     .more:hover {
         translate: 0px -5px;
-    }
-
-    @media only screen and (max-width: 1000px) {
-        .container {
-          flex-direction: column;
-        }
     }
 
 </style>

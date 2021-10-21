@@ -1,8 +1,7 @@
 <script>
 	import IntroBox from './components/IntroBox.svelte'
 	import EventFrame from './components/EventFrame.svelte';
-  import Blog from './components/Blog.svelte';
-
+  import Blog from './components/Blog.svelte';  
 
   let post = {
         title: "Title",

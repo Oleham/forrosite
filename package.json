@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "node ssr.js & rollup -c",
+    "build": "node ssr.js & rollup -c && python manage.py collectstatic",
     "dev": "node ssr.js & rollup -c -w & python manage.py runserver"
   },
   "devDependencies": {

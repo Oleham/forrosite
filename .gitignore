@@ -5,6 +5,7 @@ __pycahce__/
 *.pyc
 media/
 */migrations/
+frontend/static/frontend/*
 
 db.sqlite3
 secrets.json
