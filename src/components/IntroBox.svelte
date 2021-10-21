@@ -9,7 +9,8 @@
            id: "Forro", 
             text: `<h2>Klar for dans?</h2>
         <p>Forro er en lett tilgjengelig og populær dans fra Brasil. Den har blitt meget populær i Europa i løpet av de seneste årene. I Norge har ikke dansen vært så populær ennå.</p>
-        <p>Mer informasjon om Forro kommer på denne siden. Her kan du bli kjent med dansen og finne arrangementer her i Oslo.</p>`,
+        <p>Mer informasjon om Forro kommer på denne siden. Her kan du bli kjent med dansen og finne arrangementer her i Oslo.</p>
+        <p>Denne siden er under konstruksjon.</p>`,
             cta: "Les mer om Forro her"
         },
         {
