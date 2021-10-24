@@ -37,7 +37,6 @@
     allEvents = true;
     data = getEvents();
   }
-
 </script>
 
 
@@ -50,10 +49,6 @@
   {:catch error}
   <p>{error.message}</p>
   {/await}
-
-
-  <p>Some static element</p>
-
 
   <Blog {post}/>
 

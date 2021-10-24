@@ -4,7 +4,8 @@ from .models import Event, Post
 
 
 class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
+    # Order by date, latest date first
+    queryset = Event.objects.all().order_by('when')
     serializer_class = EventSerializer
 
 class PostViewSet(viewsets.ModelViewSet):

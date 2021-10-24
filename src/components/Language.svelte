@@ -31,9 +31,10 @@
     }
 
     button {
-        background-color: var(--main-yellow);
+        background-color: inherit;
         font-size: inherit;
-        border: 1px solid grey;
+        border: none;
+        border-bottom: 1px dotted black;
         max-width: 60px;
         margin: 0px 2px 0px 2px;
     }

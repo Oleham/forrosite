@@ -8,6 +8,8 @@
 
     let { title, where, when, img, description } = event;
 
+    when = new Date(when).toLocaleDateString();
+
     let translations = event.translations;
 
     let overlay = false;
@@ -44,7 +46,7 @@
 
 <div class:overlay class="wrapper" on:click={overlayOn}>
     <div class="card" 
-        class:selected={overlay} 
+        class:selected={overlay}
     >
         <div class="card-header">
             {#if overlay}
@@ -169,12 +171,12 @@ p {
 }
 
 .btn {
-        background-color: black;
-        border: none;
-        padding: 10px;
-        font-family: inherit;
-        color:lightgrey;
-        font-size: 1rem;
+    background-color: black;
+    border: none;
+    padding: 10px;
+    font-family: inherit;
+    color:lightgrey;
+    font-size: 1rem;
 }
 
 .exit-btn {
@@ -198,6 +200,7 @@ p {
         .card.selected {
           flex-direction: column;
           height: 80%;
+          max-width: 90%;
         }
 
         .card.selected .textbox{
