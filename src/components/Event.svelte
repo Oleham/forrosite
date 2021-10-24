@@ -91,7 +91,7 @@
     align-content: center;
     justify-content: center;
     flex-direction: column;
-    margin: 20px 0px 20px 0px;
+    margin: 20px 20px 20px 20px;
     width: 200px;
     height: 200px;
     border-radius: 10px;
