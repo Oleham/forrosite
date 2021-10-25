@@ -6,26 +6,13 @@
 
     export let event;
 
-    let { title, where, when, img, description } = event;
+    let { title, where, when, img, description, fbevent } = event;
 
-    when = new Date(when).toLocaleDateString();
+    when = new Date(when).toLocaleString("no-NO", {day:'numeric', month:'long', hour: 'numeric', minute:'numeric'});
 
     let translations = event.translations;
 
     let overlay = false;
-
-    function toggleOverlay() {
-        overlay = !overlay;
-    }
-
-    function overlayOn() {
-        overlay = true;
-    }
-
-    function overlayOff() {
-        overlay = false;
-    }
-
 
     function changeLang(e) {
         title = e.detail.title
@@ -42,9 +29,14 @@
         map = !map;
     }
 
+    console.log(fbevent)
+
 </script>
 
-<div class:overlay class="wrapper" on:click={overlayOn}>
+<div class:overlay class="wrapper" on:click={() => {overlay = true;}}>
+    {#if overlay}
+    <div class="exit-btn" on:click|stopPropagation={()=> {overlay = false;}}>❌ LUKK</div>
+    {/if}
     <div class="card" 
         class:selected={overlay}
     >
@@ -52,7 +44,6 @@
             {#if overlay}
             <div class="lang-menu">
                 <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
-                <div class="exit-btn" on:dblclick={overlayOff}>❌</div>
             </div>
             {/if}
             <h3>{title}</h3>
@@ -63,7 +54,7 @@
                 <p>{when}</p>
             </div>
             {#if overlay}
-            <button class="btn" on:click={toggleMap}>Onde?</button>
+            <button class="btn" on:click|stopPropagation={toggleMap}>Onde?</button>
             <div style="display: {map ? 'block' : 'none'};">
                 <Map adress={where} />
             </div>
@@ -71,9 +62,12 @@
         </div>
         
         {#if overlay}
-        <div class="textbox">
+        <div class="textbox" in:fade={{delay:300}}>
             <h4>Info:</h4>
-            <p in:fade="{{delay:300}}">{description}</p>
+            <p>{@html description}</p>
+            {#if fbevent}
+            <p><strong><a href={fbevent}>>>> Facebook</a></strong></p>
+            {/if}
         </div>
         {/if}
 
@@ -180,20 +174,11 @@ p {
 }
 
 .exit-btn {
-    position: absolute;
-    top: 0;
-    right: 10px;
+    position: relative;
+    top: 20;
+    right: -20;
     font-size: 3rem;
     z-index: 2;
-}
-
-.exit-btn:hover {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    font-size: 3.5rem;
-    z-index: 2;
-    cursor: pointer;
 }
 
 @media only screen and (max-width: 1000px) {

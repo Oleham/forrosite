@@ -1,5 +1,5 @@
 from rest_framework import  serializers
-from .models import Event, IMG, Translation, Post
+from .models import Event, IMG, Translation, Post, Tab
 
 class TranslationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,7 +13,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ['id', 'title', 'when', 'where', 'description', 'img', 'translations']
+        fields = ['id', 'title', 'when', 'where', 'fbevent', 'description', 'img', 'translations']
         depth = 2
 
 class IMGSerializer(serializers.ModelSerializer):
@@ -27,4 +27,9 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'
         depth = 2
+
+class TabSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tab
+        fields = '__all__'
 

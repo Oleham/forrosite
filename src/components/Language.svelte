@@ -17,7 +17,7 @@
 <div class="container">
     {#if translations.length != 0}
     {#each translations as trans}
-    <button on:click={changeLang(trans)}>{trans.lang}</button>
+    <button on:click|stopPropagation={changeLang(trans)}>{trans.lang}</button>
     {/each}
     <button on:click={revertLang} style="color: red;">X</button>
     {:else}

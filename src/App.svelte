@@ -30,6 +30,7 @@
 
   let data = getData("events");
   getPosts();
+  let tabpromise = getData("tabs");
 
   let allEvents = false;
 
@@ -37,10 +38,18 @@
     allEvents = true;
     data = getEvents();
   }
+
 </script>
 
-
+  {#await tabpromise}
   <IntroBox />
+  {:then tabs}
+  <IntroBox {tabs}/>
+  {:catch error}
+  <p>Noe gikk galt: {error.message}</p>
+  {/await}
+  
+
 
   {#await data}
   <p>venter</p>
@@ -49,6 +58,8 @@
   {:catch error}
   <p>{error.message}</p>
   {/await}
+
+  <p>Banner</p>
 
   <Blog {post}/>
 

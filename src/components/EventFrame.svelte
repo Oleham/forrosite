@@ -66,7 +66,7 @@
     {/if}
 </div>
 
-<div class="all" on:click={seeList}>(Se alle arrangementer)</div>
+<div class="all" on:click={seeList}>(Se alle arrangementer som har vært)</div>
 
 {#if list}
 <div class="overlay">
