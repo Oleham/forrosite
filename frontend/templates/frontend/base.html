@@ -15,12 +15,24 @@
 <div class="logo">
 <img src="{% static 'frontend/logo.png' %}" alt="Nettsidens logo" width="100" height="100">
 <h1>Forro i Oslo</h1>
-<div class="admin-link"><a href="/admin">Internt</a></div>
 </div>
 <nav>
     <li><a href="{% url 'index' %}">Hjem</a></li>
     <li><a href="{% url 'about' %}">Om</a></li>
 </nav>
     {% block content %}{% endblock %}
+
+<footer>
+    <div>
+    <p><a href="{% url 'index' %}">Hjem</a></p>
+    <p><a href="{% url 'about' %}">Om</a></p>
+    </div>
+    <div>
+    <p>©{% now "Y" %}</p>
+    <p>Webmaster: <a href="https://www.olehammersland.com">Ole Hammersland</p>
+    </div>
+    <p><a class="admin-link" href="/admin" style="color: grey;">Internt</a></p>
+</footer>
+<img id="bottom_banner" src="{% static 'frontend/banner_bottom.jpg' %}">
 </body>
 </html>

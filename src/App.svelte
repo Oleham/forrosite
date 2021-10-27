@@ -59,10 +59,14 @@
   <p>{error.message}</p>
   {/await}
 
-  <p>Banner</p>
+  <img src="/static/frontend/banner_bottom.jpg" alt="En illustrasjon av dansende par">
 
   <Blog {post}/>
 
 <style>
+
+  img {
+    width: 100%;
+  }
 
 </style>

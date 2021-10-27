@@ -11,6 +11,7 @@
                     alt: "Alternativ tekst"
                 },
                 description: "Ta med danseskoene og kom!",
+                fbevent: "",
                 translations: [
                     {
                         lang: "en",
@@ -25,63 +26,63 @@
                 ]
             }];
 
-    
+    let numberOfUpcoming = 0;
+    // Checks whether the event is in the past or future.
     function findUpcoming(array) {
         let today = new Date()
-        return array.filter((el) => {
-            return (today <= new Date(el.when))
+        return array.map((el) => {
+            if (today <= new Date(el.when)) {
+                numberOfUpcoming++
+                el.upcoming = true;
+                return el;              
+            } else {
+                el.upcoming = false;
+                return el;
+            }
         })
     };
 
-    let upcoming = findUpcoming(events);
+    let sortedEvents = findUpcoming(events);
 
-    // State for all upcoming events
+    // Sort the array so that the upcoming events are first.
+    sortedEvents.sort((a,b) => {
+        if (a.upcoming && b.upcoming) {
+            return 0;
+        }
+        if (a.upcoming && !b.upcoming) {
+            return -1;
+        }
+        if (!a.upcoming && b.upcoming) {
+            return 1;
+        }
+
+    })
+
     let showAll = false;
 
-    function toggleUpcoming() {
-        showAll = !showAll
-    }
+    let items = numberOfUpcoming;
 
-    function seeList() {
-        list = true;
-    }
 
-    // List is the state for seeing the full event list.
-    let list = false;
 
 </script>
 
-<h2>Se kommende arrangementer --></h2>
 
-<div class="container">
-    {#each upcoming as event, i}
-        {#if i < 3 || showAll}
-            <Event {event} />
-        {/if}
-    {/each}
+<h2>Se {showAll ? "alle" : "kommende"} arrangementer --></h2>
+
+<div class="controls">
+    <input type="checkbox" id="allcheck" bind:checked={showAll}><label for="allcheck">(se alle)</label>
     {#if showAll}
-    <div class="more" on:click={toggleUpcoming}>-</div>
-    {:else}
-    <div class="more" on:click={toggleUpcoming}>+</div>
+    <input type="range" id="itemsrange" bind:value={items} max={sortedEvents.length}><label for="itemsrange">Viser {items} av {sortedEvents.length} arrangementer.</label>
     {/if}
 </div>
 
-<div class="all" on:click={seeList}>(Se alle arrangementer som har vært)</div>
-
-{#if list}
-<div class="overlay">
-    <div class="allwrapper">
-        <h1>Alle arrangementer:</h1>
-        <div class="allcontainer">
-            {#each events as event}
-                <Event {event}/>
-            {/each}
-        </div>
-        <button on:click={() => {list = false;}}>Tilbake</button>
-    </div>
+<div class="container">
+    {#each sortedEvents as event, i (event.id)}
+        {#if (showAll && i < items) || (!showAll && event.upcoming === true)}
+            <Event {event} />
+        {/if}
+    {/each}
 </div>
-{/if}
-
 
 <style>
     .container {
@@ -91,74 +92,13 @@
         flex-wrap: wrap;
     }
 
-    .overlay {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        overflow-y: auto;
-        background-color:rgb(0,0,0);
-        z-index: 1;
-        transition: 0.3s;
+    .controls label {
+        margin: 0px 10px 0px 10px;
     }
 
-    .allcontainer {
-        display: flex;
-        flex-wrap:wrap;
-        align-content: center;
-        justify-content: space-between;
-        width: 90%;
-        height: 90%;
-        z-index: 4;
-        transition: 0.3s;
-    }
-    
-    .allwrapper {
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .allwrapper button {
-        text-decoration: none;
-        border: none;
-        font-size: inherit;
-        font-family: inherit;
-        cursor: pointer;
-    }
-
-    .allwrapper button:hover {
-        font-size: 1.5rem;
-    }
-
-    .all {
-        color: rgba(255,255,255,0.5);
-    }
-
-    .all:hover {
-        color: white;
-        cursor: pointer; 
-    }
-
-    .more {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background-color: var(--background-card);
-        font-size: 5rem;
-        width: 200px;
-        height: 200px;
-        border-radius: 10px;
-        margin: 20px 0px 20px 0px;
-        padding: 20px;
-    }
-
-    .more:hover {
-        translate: 0px -5px;
+    #allcheck {
+        width: 20px;
+        height: 20px;
     }
 
 </style>

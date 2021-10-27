@@ -45,7 +45,7 @@
         activeTab = id;
         expand = false;
    }
-
+   
    let expand = false;
 
 </script>
@@ -58,14 +58,15 @@
 
 {#each tabs as tab}
     {#if activeTab === tab.id}
-    <div class="box" id={tab.title} in:slide={{delay: 400, duration:500}} out:slide={{duration:500}}>
+    <div class="box" id={tab.title} in:slide={{delay: 500, duration:500}} out:slide={{duration:500}}>
         {@html tab.teaser}
         {#if expand}
-        <div transition:slide={{duration:500}} >{@html tab.text}
-        <p><button class="btn" on:click={() => {expand=false;}}>Lukk</button></p>
+        <div in:slide={{duration: 500}} out:slide={{duration:500}}>
+        {@html tab.text}
+        <p><button class="btn" on:click={() => {expand = false;}}>Lukk</button></p>
         </div>
         {:else}
-        <p transition:slide><button class="btn" on:click={() => {expand=true;}}>{tab.cta}</button></p>
+        <p><button class="btn" on:click={() => {expand = true;}}>{tab.cta}</button></p>
         {/if}
     </div>
     {/if}

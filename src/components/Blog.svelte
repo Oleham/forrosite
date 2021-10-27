@@ -13,8 +13,9 @@ export let post = {
 </script>
 
 <div class="container">
+<h1>Les bloggen:</h1>
 <img src={post.img.src} alt={post.img.alt}>
-<h1>{post.title}</h1>
+<h2>{post.title}</h2>
 <p><strong>{post.ingress}</strong></p>
 {@html post.body}
 </div>
@@ -23,7 +24,10 @@ export let post = {
     .container {
         margin: 30px 0px 30px 0px;
         border-top: 2px solid var(--main-yellow);
-        border-bottom: 2px solid var(--main-yellow);
         padding: 20px 0px 20px 0px;
+    }
+
+    img {
+        max-width: 100%;
     }
 </style>

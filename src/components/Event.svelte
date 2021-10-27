@@ -1,14 +1,37 @@
 <script>
-    import { fade } from 'svelte/transition';
+    import { fade, fly } from 'svelte/transition';
     import Language from './Language.svelte';
     import Map from './Map.svelte';
 
 
-    export let event;
+    export let event = {   
+                title: "Tittel",
+                where: "Address",
+                when: "01.02.04 10:00",
+                fbevent: "",
+                upcoming: false,
+                img: {
+                    src: "image.jpeg",
+                    alt: "Alternativ tekst"
+                },
+                description: "Ta med danseskoene og kom!",
+                translations: [
+                    {
+                        lang: "en",
+                        title: "Title",
+                        description: "Bring your dancing shoes!!"
+                    },
+                    {
+                        lang: "po",
+                        title: "Título",
+                        description: "Traga seus sapatos de dança!"
+                    }
+                ]
+            };
 
-    let { title, where, when, img, description, fbevent } = event;
+    let { title, where, when, img, description, fbevent, upcoming } = event;
 
-    when = new Date(when).toLocaleString("no-NO", {day:'numeric', month:'long', hour: 'numeric', minute:'numeric'});
+    when = new Date(when).toLocaleString("no-NO", {day:'numeric', month:'long', hour: 'numeric', minute:'numeric', year: 'numeric'});
 
     let translations = event.translations;
 
@@ -28,9 +51,6 @@
     function toggleMap() {
         map = !map;
     }
-
-    console.log(fbevent)
-
 </script>
 
 <div class:overlay class="wrapper" on:click={() => {overlay = true;}}>
@@ -38,7 +58,9 @@
     <div class="exit-btn" on:click|stopPropagation={()=> {overlay = false;}}>❌ LUKK</div>
     {/if}
     <div class="card" 
+        class:upcoming={!upcoming}
         class:selected={overlay}
+        transition:fly={{x: 400, duration: 500}}
     >
         <div class="card-header">
             {#if overlay}
@@ -46,7 +68,7 @@
                 <Language {translations} on:changeLang={changeLang} on:revertLang={revertLang}/>
             </div>
             {/if}
-            <h3>{title}</h3>
+            <h3>{#if !upcoming}Arkiv: {/if}{title}</h3>
             <div class="infobox">
                 <p>🌎</p>
                 <p>{where}</p>
@@ -62,13 +84,18 @@
         </div>
         
         {#if overlay}
+        {#key description}
         <div class="textbox" in:fade={{delay:300}}>
             <h4>Info:</h4>
-            <p>{@html description}</p>
+            {@html description}
+            {#if !upcoming}
+            <p><strong>Obs! Se datoen, vi er ferdige med dette arrangementet!</strong></p>
+            {/if}
             {#if fbevent}
             <p><strong><a href={fbevent}>>>> Facebook</a></strong></p>
             {/if}
         </div>
+        {/key}
         {/if}
 
         <div class="image-box">
@@ -82,15 +109,16 @@
 
 .card {
     display: flex;
-    align-content: center;
+    align-content: space-around;
     justify-content: center;
     flex-direction: column;
     margin: 20px 20px 20px 20px;
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 10px;
     padding: 20px;
     background-color: var(--background-card);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
 }
 
 .card:hover {
@@ -114,6 +142,11 @@
     z-index: 2;
 }
 
+.card.upcoming, .card.selected.upcoming {
+    background-color: grey;
+}
+
+
 
 .image-box {
     display: flex;
@@ -127,17 +160,35 @@
 }
 
 .card.selected .image-box {
-    width:unset;
-    height: 200px;
-    max-width: 300px;
+    width:auto;
+    min-width: 20%;
+    max-width: 33%;
+    height: auto;
+    max-height: 100%;
     overflow:hidden;
     opacity: unset;
+}
+
+.card.selected .card-header{
+    min-width: 20%;
+    max-width: 25%;
+}
+
+.card-header h3 {
+    margin-bottom: 2px;
 }
 
 .infobox {
     display:grid;
     grid-template-columns: 30px 100px;
+    font-size: 0.9rem;
     margin: 10px 0px 10px 0px;
+}
+
+.card.selected .infobox {
+    grid-template-columns: 1fr 3fr;
+    font-size: inherit;
+
 }
 
 p {
@@ -186,6 +237,12 @@ p {
           flex-direction: column;
           height: 80%;
           max-width: 90%;
+          margin: unset;
+        }
+
+        .card.selected .card-header{
+            min-width: 100%;
+            max-width: 100%;
         }
 
         .card.selected .textbox{
@@ -195,6 +252,12 @@ p {
             border-top: 1px dotted black;
             border-bottom: 1px dotted black;
         }
+
+        .card.selected .image-box {
+            min-width: 100%;
+            min-height: 150px;
+        }
     }
+
 
 </style>

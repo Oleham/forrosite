@@ -35,6 +35,10 @@ class Translation(models.Model):
     def __str__(self):
         return f"{self.lang} translation for {self.event.title}"
 
+    def save(self, *args, **kwargs):
+        self.description = markdown.markdown(self.description)
+        super(Translation, self).save(*args, **kwargs)
+
 # Blog post
 class Post(models.Model):
     title = models.CharField(max_length=200)
