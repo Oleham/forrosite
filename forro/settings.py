@@ -29,7 +29,7 @@ SECRET_KEY = SECRETS.get("SECRET_KEY", None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = SECRETS.get("DEBUG", False)
 
-ALLOWED_HOSTS = ["159.223.25.197", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["forro.site", "localhost", "127.0.0.1"]
 
 # Application definition
 
