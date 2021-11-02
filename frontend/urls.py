@@ -13,6 +13,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('blogg/', views.all_blog, name="allblog"),
+    path('blogg/<int:id>', views.single_blog, name="singleblog"),
     path('om', views.about, name="about"),
+    path('', views.index, name="index"),
 ]

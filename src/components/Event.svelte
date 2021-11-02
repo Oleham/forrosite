@@ -226,6 +226,8 @@ p {
 
 .exit-btn {
     position: relative;
+    background-color: var(--main-yellow);
+    box-shadow: 10px 0px 20px var(--main-yellow);
     top: 20;
     right: -20;
     font-size: 3rem;

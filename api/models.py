@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.deletion import CASCADE
 import markdown
 
 class IMG(models.Model):
@@ -45,12 +47,15 @@ class Post(models.Model):
     ingress = models.TextField()
     body = models.TextField()
     img = models.OneToOneField(IMG, on_delete=models.CASCADE, default=1)
+    date = models.DateTimeField(auto_created=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         self.body = markdown.markdown(self.body)
+        self.ingress = markdown.markdown(self.ingress)
         super(Post, self).save(*args, **kwargs)
 
 # Tabs of the Introbox

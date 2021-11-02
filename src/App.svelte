@@ -1,9 +1,9 @@
 <script>
 	import IntroBox from './components/IntroBox.svelte'
 	import EventFrame from './components/EventFrame.svelte';
-  import Blog from './components/Blog.svelte';  
+  import BlogFrame from './components/BlogFrame.svelte';  
 
-  let post = {
+  let posts = [{
         title: "Title",
         ingress:"Text",
         body: "Text",
@@ -11,7 +11,7 @@
           src: "media/event-images/plassholder.jpg",
           alt: "Folkefest med forro"
         }
-    }
+    },]
   
 
 	async function getData(url) {
@@ -24,15 +24,13 @@
   async function getPosts() {
     await fetch("api/posts")
     .then(data => data.json())
-    .then((payload) => {post = payload[0]})
+    .then((payload) => {posts = payload})
     .catch((error) => {console.log(error)})
   }
 
   let data = getData("events");
   getPosts();
   let tabpromise = getData("tabs");
-
-  let allEvents = false;
 
   function open() {
     allEvents = true;
@@ -49,8 +47,6 @@
   <p>Noe gikk galt: {error.message}</p>
   {/await}
   
-
-
   {#await data}
   <p>venter</p>
   {:then events}
@@ -61,7 +57,7 @@
 
   <img src="/static/frontend/banner_bottom.jpg" alt="En illustrasjon av dansende par">
 
-  <Blog {post}/>
+  <BlogFrame {posts}/>
 
 <style>
 
