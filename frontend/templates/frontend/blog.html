@@ -10,13 +10,13 @@
 <h1>{{ post.title }}</h1>
 
 <img src="{% get_media_prefix %}{{ post.img.src }}" alt="{{ post.img.alt }}">
-<strong>{{ post.ingress |safe}}</strong>
+<div class="ingress"><strong>{{ post.ingress |safe}}</strong></div>
 
 <small>Skrevet av: {{ post.author.first_name }} {{ post.author.last_name }}</small>
 
 {{ post.body |safe}}
 
-<a href="{% url 'allblog' %}">Tilbake</a>
+<p style="text-align: center;"><a href="{% url 'allblog' %}">Tilbake</a></p>
 
 </div>
 {% else %}

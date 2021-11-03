@@ -135,8 +135,16 @@ footer a {
 }
 
 .blogteaser img {
-
 	width: 30%;
 	max-height: 250px;
+}
 
+.blogginnlegg img {
+	max-width: 100%;
+	max-height: 600px;
+}
+
+.ingress {
+	border-bottom: 1px dotted var(--main-yellow);
+	margin-bottom: 10px;
 }

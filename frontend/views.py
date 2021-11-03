@@ -17,7 +17,7 @@ def single_blog(request, addr):
 
 def all_blog(request):
 
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by("-date")
 
     return render(request, "frontend/blog.html", {"posts": posts})
 

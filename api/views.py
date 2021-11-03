@@ -9,7 +9,7 @@ class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.order_by('date').all()
+    queryset = Post.objects.order_by('-date').all()
     serializer_class = PostSerializer
 
 class TabViewSet(viewsets.ModelViewSet):
