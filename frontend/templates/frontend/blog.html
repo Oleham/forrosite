@@ -4,6 +4,7 @@
 {% block content %}
 
 {% if single  %}
+{# Enkel post #}
 
 <div class="blogginnlegg">
 <h1>{{ post.title }}</h1>
@@ -19,6 +20,7 @@
 
 </div>
 {% else %}
+{# Oversikt over alle poster #}
 
 <h1>Poster om Forro i Oslo</h1>
 
@@ -28,11 +30,13 @@
 <div class="text">
 <h2>{{post.title}}</h2>
 {{post.ingress |safe}}
-<a href="{% url 'singleblog' post.id %}">Les mer!</a>
+<a href="{% url 'singleblog' post.slug %}">Les mer!</a>
 </div>
 <img src="{% get_media_prefix %}{{ post.img.src }}" alt="{{ post.img.alt }}">
 </div>
 
+{% empty %}
+<p>Ingen poster å vise…</p>
 {% endfor %}
 
 

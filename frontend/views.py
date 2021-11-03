@@ -9,9 +9,9 @@ def about(request):
 
     return render(request, 'frontend/about.html')
 
-def single_blog(request, id):
+def single_blog(request, addr):
 
-    posts = Post.objects.filter(id=id).first()
+    posts = Post.objects.filter(slug=addr).first()
 
     return render(request, "frontend/blog.html", {"post": posts, "single":True})
 

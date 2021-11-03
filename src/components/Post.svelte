@@ -1,9 +1,9 @@
 <script>
 
-export let id = 0;
 export let title = "Tittel";
 export let ingress = "Ingress";
 export let date = "";
+export let slug = "";
 export let img = {
             src: "",
             alt: ""
@@ -21,7 +21,7 @@ export let img = {
 <img src={img.src} alt={img.alt}>
 <h2>{title}</h2>
 {@html ingress}
-<p><a href="blogg/{id}">Les mer</a></p>
+<p><a href="blogg/{slug}">Les mer</a></p>
 </div>
 
 <style>

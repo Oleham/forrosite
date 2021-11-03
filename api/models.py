@@ -32,7 +32,7 @@ class Translation(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="translations")
     lang = models.CharField(max_length=3)
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(verbose_name="Description (MD)")
 
     def __str__(self):
         return f"{self.lang} translation for {self.event.title}"
@@ -44,16 +44,21 @@ class Translation(models.Model):
 # Blog post
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    ingress = models.TextField()
-    body = models.TextField()
+    slug = models.SlugField(verbose_name="Adresse", unique=True, blank=True)
+    ingress = models.TextField(verbose_name="Ingress (MD)")
+    body = models.TextField(verbose_name="Body text (MD)")
     img = models.OneToOneField(IMG, on_delete=models.CASCADE, default=1)
-    date = models.DateTimeField(auto_created=True)
+    date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
+
+        if self.slug == "":
+            self.slug = self.title.lower().replace(" ", "-")
+
         self.body = markdown.markdown(self.body)
         self.ingress = markdown.markdown(self.ingress)
         super(Post, self).save(*args, **kwargs)

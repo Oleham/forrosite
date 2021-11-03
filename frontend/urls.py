@@ -14,7 +14,7 @@ from . import views
 
 urlpatterns = [
     path('blogg/', views.all_blog, name="allblog"),
-    path('blogg/<int:id>', views.single_blog, name="singleblog"),
+    path('blogg/<slug:addr>', views.single_blog, name="singleblog"),
     path('om', views.about, name="about"),
     path('', views.index, name="index"),
 ]
