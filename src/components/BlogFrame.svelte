@@ -47,7 +47,7 @@
         on:click={() => {change("left")}}
         transition:fly={{y: 100, delay: 300, duration:500 }}
         >
-            ◀
+            &lt;
         </button>
         {/if}
     </div>
@@ -64,7 +64,7 @@
         on:click={() => {change("right")}}
         transition:fly={{y: 100, delay: 300, duration:500 }}
         >
-            ▶
+            &gt;
         </button>
         {/if}
     </div>
@@ -94,6 +94,8 @@
     button {
         background-color: lightgreen;
         box-shadow: 5px 5px 5px;
+        font-size: 2rem;
+        font-weight: bold;
         border: none;
         width: 100%;
         height: 100%;

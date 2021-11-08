@@ -1,7 +1,9 @@
 <script>
 	import IntroBox from './components/IntroBox.svelte'
 	import EventFrame from './components/EventFrame.svelte';
-  import BlogFrame from './components/BlogFrame.svelte';  
+  import BlogFrame from './components/BlogFrame.svelte';
+
+  
 
   let posts = [{
         title: "Title",
@@ -12,7 +14,7 @@
           alt: "Folkefest med forro"
         }
     },]
-  
+
 
 	async function getData(url) {
 		const response = await fetch(`api/${url}`)
@@ -50,7 +52,7 @@
   {#await data}
   <p>venter</p>
   {:then events}
-  <EventFrame {events} on:more={open}/>
+  <EventFrame {events} />
   {:catch error}
   <p>{error.message}</p>
   {/await}

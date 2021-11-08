@@ -3,8 +3,10 @@
     import Language from './Language.svelte';
     import Map from './Map.svelte';
 
+    let eventParam = new URL(location.href).searchParams.get('event')
 
-    export let event = {   
+    export let event = {  
+                id: 0,
                 title: "Tittel",
                 where: "Address",
                 when: "01.02.04 10:00",
@@ -36,6 +38,17 @@
     let translations = event.translations;
 
     let overlay = false;
+    if (event.id == eventParam && upcoming) {
+        overlay = true;
+    }
+
+    let eventCopied = false;
+    
+    function copyEventLink() {
+        let eventURL = window.location.host + `?event=${event.id}`;
+        navigator.clipboard.writeText(eventURL);
+        eventCopied = true;
+    }
 
     function changeLang(e) {
         title = e.detail.title
@@ -90,9 +103,17 @@
             {@html description}
             {#if !upcoming}
             <p><strong>Obs! Se datoen, vi er ferdige med dette arrangementet!</strong></p>
+            {:else}
+            <p>
+                <button class="btn" on:click={copyEventLink}>Del arrangmentet</button>
+                {#if eventCopied}
+                <span>Addresse kopiert!</span>
+                {/if}
+            </p>
             {/if}
+    
             {#if fbevent}
-            <p><strong><a href={fbevent}>>>> Facebook</a></strong></p>
+            <p><strong><a href={fbevent}>&gt;&gt;&gt; Se Facebook-arrangement</a></strong></p>
             {/if}
         </div>
         {/key}
