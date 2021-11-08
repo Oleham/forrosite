@@ -45,7 +45,7 @@
     let eventCopied = false;
     
     function copyEventLink() {
-        let eventURL = window.location.host + `?event=${event.id}`;
+        let eventURL = "https://" + window.location.host + `?event=${event.id}`;
         navigator.clipboard.writeText(eventURL);
         eventCopied = true;
     }
