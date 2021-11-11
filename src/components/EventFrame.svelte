@@ -61,9 +61,7 @@
     let showAll = false;
 
     let items = numberOfUpcoming;
-
-
-
+    
 </script>
 
 
@@ -77,6 +75,12 @@
 </div>
 
 <div class="container">
+    {#if (numberOfUpcoming === 0 && items === 0)}
+    <p>
+        … ingen kommende arrangementer for øyeblikket 😔<br>
+        Kjenner du til et forró-relatert arrangement? <a href="mailto:post@olehammersland.com">Ta kontakt!</a>
+    </p>
+    {/if}
     {#each sortedEvents as event, i (event.id)}
         {#if (showAll && i < items) || (!showAll && event.upcoming === true)}
             <Event {event} />

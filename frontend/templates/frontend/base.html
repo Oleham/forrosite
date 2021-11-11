@@ -6,6 +6,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Forro i Oslo" />
+    <meta name="description" content="Forro i Oslo handler om den brasilianske dansen forro. Få informasjon om forro her." />
+    <meta name="keywords" content="forro,xote,dans,brasil,brasiliansk,oslo,roots,dansing,salsa,tango,trekkspill,sosial" />
+
+    <meta property="og:title" content="Forro i Oslo" />
+    <meta property="og:description" content="Forro i Oslo handler om den brasilianske dansen forro. Få informasjon om forro her." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://osloforro.site" />
+    <meta property="og:image" content="{% static 'frontend/favicon.png' %}"/>
+    <meta property="og:updated_time" content="{% now "c" %}" />
+
     <title>Forro i Oslo 💃</title>
     <link rel='icon' type='image/png' href="{% static 'frontend/favicon.png' %}">
 	<link rel='stylesheet' href="{% static 'frontend/global.css' %}">
@@ -18,7 +29,7 @@
 </div>
 <nav>
     <li><a href="{% url 'index' %}">Hjem</a></li>
-    <li><a href="{% url 'allblog' %}">Blogg</a></li>
+    <li><a href="{% url 'allblog' %}">Nyheter</a></li>
     <li><a href="{% url 'about' %}">Om</a></li>
 </nav>
     {% block content %}{% endblock %}
@@ -26,6 +37,7 @@
 <footer>
     <div>
     <p><a href="{% url 'index' %}">Hjem</a></p>
+    <p><a href="{% url 'allblog' %}">Nyheter</a></p>
     <p><a href="{% url 'about' %}">Om</a></p>
     </div>
     <div>
